@@ -3,10 +3,37 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy.util as util
 from spotipy.oauth2 import SpotifyOAuth
+import requests
+import json
+from json import JSONDecoder
+from functools import partial
 
 SPOTIPY_CLIENT_ID = 'f06e7fa5003a485db5ab5334777a9c8a'
 SPOTIPY_CLIENT_SECRET = '8b5c1744d7944157b516b6c4384af1e2'
 SPOTIPY_REDIRECT_URI = 'http://localhost:8888/callback/'
+
+#Generate an authorization token
+token = SpotifyClientCredentials('f06e7fa5003a485db5ab5334777a9c8a', '8b5c1744d7944157b516b6c4384af1e2')
+#Create a spotipy object using the credentials
+sp = spotipy.Spotify(client_credentials_manager = token)
+
+#User information
+spotify = spotipy.Spotify()
+username = '1266146616'
+scope = None
+
+def json_parse(fileobj, decoder=JSONDecoder(), buffersize=2048):
+    buffer = ''
+    for chunk in iter(partial(fileobj.read, buffersize), ''):
+         buffer += chunk
+         while buffer:
+             try:
+                 result, index = decoder.raw_decode(buffer)
+                 yield result
+                 buffer = buffer[index:]
+             except ValueError:
+                 # Not enough data to decode, read more
+                 break
 
 #Show tracks function
 def show_tracks(results):
@@ -14,16 +41,51 @@ def show_tracks(results):
         track = item['track']
         print("   %d %32.32s %s" % (i, track['artists'][0]['name'], track['name']))
 
-#Generate an authorization token
-token = SpotifyClientCredentials('f06e7fa5003a485db5ab5334777a9c8a', '8b5c1744d7944157b516b6c4384af1e2')
-#Create a spotipy object using the credentials
-sp = spotipy.Spotify(client_credentials_manager = token)
+def play_spot():
+    scope = 'user-modify-playback-state'
+    a = SpotifyOAuth.get_cached_token
+    if (a != None):
+        c_token = SpotifyOAuth.get_cached_token
+    else:
+        c_token = util.prompt_for_user_token(username, scope, SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, SPOTIPY_REDIRECT_URI)
+    import json
 
-#Playlists Get
-#User information
-spotify = spotipy.Spotify()
-username = '1266146616'
-scope = None
+    data = []
+    with open('.cache-loganlouks') as f:
+        for line in f:
+            data.append(json.loads(line))
+
+    # with open('.cache-loganlouks', 'r') as infh:
+    #     for data in json_parse(infh):
+    #         pay.append(json.loads(line))
+    #arr = json.loads(data)
+    #payload = data
+    r = requests.put('https://api.spotify.com/v1/me/player/play', data = {'access_token': 'BQBq_08n-82eVI1hKUJo5rHRkz9GfHjHpdpKao6u71O6x7-91tnFZH2Bc_Kx9nXfPXQZ4GCJ3lOnSPyYP3gmVbHFDTYxeGvn49jcTeusm2Npst_xre8aq1gEhqOeGYErINgZutZ3Eot9mEYo6w'})
+    print(r.status_code)
+    print(r.content)
+
+def pause_spot():
+    scope = 'user-modify-playback-state'
+    a = SpotifyOAuth.get_cached_token
+    if (a != None):
+        c_token = SpotifyOAuth.get_cached_token
+    else:
+        c_token = util.prompt_for_user_token(username, scope, SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, SPOTIPY_REDIRECT_URI)
+    import json
+
+    data = []
+    with open('.cache-loganlouks') as f:
+        for line in f:
+            data.append(json.loads(line))
+
+    # with open('.cache-loganlouks', 'r') as infh:
+    #     for data in json_parse(infh):
+    #         pay.append(json.loads(line))
+    #arr = json.loads(data)
+    #payload = data
+    r = requests.put('https://api.spotify.com/v1/me/player/pause', data = {'access_token': 'BQBq_08n-82eVI1hKUJo5rHRkz9GfHjHpdpKao6u71O6x7-91tnFZH2Bc_Kx9nXfPXQZ4GCJ3lOnSPyYP3gmVbHFDTYxeGvn49jcTeusm2Npst_xre8aq1gEhqOeGYErINgZutZ3Eot9mEYo6w'})
+    print(r.status_code)
+    print(r.content)
 
 #Cached token check, otherwise generate new token
 a = SpotifyOAuth.get_cached_token
