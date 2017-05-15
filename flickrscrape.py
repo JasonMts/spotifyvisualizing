@@ -9,7 +9,7 @@ from nltk.corpus import wordnet as wn
 FLICKR_PUBLIC = '0ba5a62e543bd1a4b2c8f662a16577ac'
 FLICKR_SECRET = '74261c8a79410e10'
 
-#
+#holds all dictionary nouns
 allnouns = []
 
 #function that gets pictures given a list of words

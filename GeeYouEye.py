@@ -1,3 +1,4 @@
+#library imports
 from flickrscrape import getnouns, allnouns, getpictures, getbestwords, checknouns
 import tkinter
 import tkinter.messagebox
@@ -23,7 +24,7 @@ imgPanelI.image = imgI
 imgPanelI.grid(row=1, column=1, columnspan=10, rowspan=7)
 songBox = Listbox(top)
 songBox.grid(row=0, column=0, rowspan=7)
-for item in ["Tunnel Vision", "song_dos", "song_tres", "song_quatro", "song_cinco_de_mayo"]:
+for item in ["Tunnel Vision", "Stairway to Heaven", "Dirt", "Fake Plastic Trees", "Through the Fire and Flames"]:
     songBox.insert(END, item)
 
 #butt stuff, coding for buttons goes in corresponding functions below
@@ -31,6 +32,7 @@ def qui():
     top.destroy()
 def confSong():
     tkinter.messagebox.showinfo("Song Info", str.lower(songBox.get(songBox.curselection())).replace(" ",""))
+    #get pictures for that song
     lyrics = str.lower(songBox.get(songBox.curselection())).replace(" ","")
     getpictures(checknouns(getbestwords(lyrics + ".txt")))
 
