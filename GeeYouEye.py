@@ -1,3 +1,4 @@
+from flickrscrape import getnouns, allnouns, getpictures, getbestwords, checknouns
 import tkinter
 import tkinter.messagebox
 from tkinter import *
@@ -6,6 +7,9 @@ import os
 from threading import Timer
 import time
 top = Tk()
+
+#call function that prepares all possible nouns
+getnouns()
 
 #initial allocation setup the 10 is hardcoded to allow up to 10 images
 img = [0 for i in range(10)]
@@ -19,14 +23,17 @@ imgPanelI.image = imgI
 imgPanelI.grid(row=1, column=1, columnspan=10, rowspan=7)
 songBox = Listbox(top)
 songBox.grid(row=0, column=0, rowspan=7)
-for item in ["song_uno", "song_dos", "song_tres", "song_quatro", "song_cinco_de_mayo"]:
+for item in ["Tunnel Vision", "song_dos", "song_tres", "song_quatro", "song_cinco_de_mayo"]:
     songBox.insert(END, item)
 
 #butt stuff, coding for buttons goes in corresponding functions below
 def qui():
     top.destroy()
 def confSong():
-    tkinter.messagebox.showinfo("Song Info", songBox.get(songBox.curselection()))
+    tkinter.messagebox.showinfo("Song Info", str.lower(songBox.get(songBox.curselection())).replace(" ",""))
+    lyrics = str.lower(songBox.get(songBox.curselection())).replace(" ","")
+    getpictures(checknouns(getbestwords(lyrics + ".txt")))
+
     t1.start()
 
 def timeout0():

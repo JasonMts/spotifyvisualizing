@@ -8,7 +8,8 @@ from nltk.corpus import wordnet as wn
 #keys
 FLICKR_PUBLIC = '0ba5a62e543bd1a4b2c8f662a16577ac'
 FLICKR_SECRET = '74261c8a79410e10'
-#holds all possible nouns
+
+#
 allnouns = []
 
 #function that gets pictures given a list of words
@@ -77,5 +78,5 @@ def checknouns(top):
     print(search)
     return(search)
 
-getnouns()
-getpictures(checknouns(getbestwords("tunnelvision.txt")))
+# getnouns()
+# getpictures(checknouns(getbestwords("tunnelvision.txt")))
