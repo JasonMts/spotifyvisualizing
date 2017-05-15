@@ -29,13 +29,13 @@ def qui():
 def confSong():
     tkinter.messagebox.showinfo("Song Info", songBox.get(songBox.curselection()))
     t1.start()
-    
+
 def timeout0():
     #size needs to change based on amount of pictures
     size = 4
     looper = 0
     while (looper < size):
-        img[looper] = Image.open("test" + str(looper + 1) + ".png")
+        img[looper] = Image.open("pic" + str(looper + 1) + ".jpg")
         img[looper] = img[looper].resize((200, 200), Image.ANTIALIAS)
         img[looper] = ImageTk.PhotoImage(img[looper])
         imgPanel[looper] = Label(top, image = img[looper])
@@ -54,8 +54,8 @@ def timeout1(track, limit):
         timeout1(track + 1, limit)
     else:
         tkinter.messagebox.showinfo("END", "Song Complete")
-    
-    
+
+
 # Code to add widgets will go here...
 t1 = Timer(0, timeout0)
 buttConfirm = tkinter.Button (top, activebackground='green', text = "Confirm", command=confSong)
