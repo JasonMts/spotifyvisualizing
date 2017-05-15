@@ -8,6 +8,8 @@ from nltk.corpus import wordnet as wn
 #keys
 FLICKR_PUBLIC = '0ba5a62e543bd1a4b2c8f662a16577ac'
 FLICKR_SECRET = '74261c8a79410e10'
+#holds all possible nouns
+allnouns = []
 
 #function that gets pictures given a list of words
 def getpictures(keywords):
@@ -49,7 +51,7 @@ def getbestwords(filename):
 
     #use Counter library to find the most common words
     countable = Counter(idx)
-    mostcommon = countable.most_common(10)
+    mostcommon = countable.most_common(15)
 
     #get just the words
     for i in range(len(mostcommon)):
@@ -57,15 +59,14 @@ def getbestwords(filename):
 
     return(top)
 
-
-#This function checks if the top words are nouns returns them
-def checknouns(top):
-    allnouns = []
-    search = []
-
+def getnouns():
     #get list of nouns from database
     for i in wn.all_synsets('n'):
         allnouns.append(i.name().split('.',1)[0])
+
+#This function checks if the top words are nouns returns them
+def checknouns(top):
+    search = []
 
     #check if the words are noun and print them out if they are
     for j in top:
@@ -76,6 +77,5 @@ def checknouns(top):
     print(search)
     return(search)
 
-#list = ['yellow', 'blue', 'black']
-#getpictures(list)
-getpictures(checknouns(getbestwords("file.txt")))
+getnouns()
+getpictures(checknouns(getbestwords("tunnelvision.txt")))
