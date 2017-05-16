@@ -1,5 +1,4 @@
 import sys
-import base64
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy.util as util
@@ -23,7 +22,6 @@ spotify = spotipy.Spotify()
 username = '1266146616'
 scope = None
 
-#Parse json file object by object, is not used currently
 def json_parse(fileobj, decoder=JSONDecoder(), buffersize=2048):
     buffer = ''
     for chunk in iter(partial(fileobj.read, buffersize), ''):
@@ -43,7 +41,6 @@ def show_tracks(results):
         track = item['track']
         print("   %d %32.32s %s" % (i, track['artists'][0]['name'], track['name']))
 
-#Play song on Spotify client function
 def play_spot():
     scope = 'user-modify-playback-state'
     a = SpotifyOAuth.get_cached_token
@@ -51,24 +48,22 @@ def play_spot():
         c_token = SpotifyOAuth.get_cached_token
     else:
         c_token = util.prompt_for_user_token(username, scope, SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, SPOTIPY_REDIRECT_URI)
+    import json
 
-    # data = []
-    # with open('.cache-11151306648') as f:
-    #     for line in f:
-    #         data.append(json.loads(line))
+    data = []
+    with open('.cache-loganlouks') as f:
+        for line in f:
+            data.append(json.loads(line))
 
-    Play_URL = "https://api.spotify.com/v1/me/player/play"
-    payload = {'access_token': 'token',
-               'grant_type': 'access_token'}
+    # with open('.cache-loganlouks', 'r') as infh:
+    #     for data in json_parse(infh):
+    #         pay.append(json.loads(line))
+    #arr = json.loads(data)
+    #payload = data
+    #r = requests.put('https://api.spotify.com/v1/me/player/play', data = {'access_token': })
+    #print(r.status_code)
+    #print(r.content)
 
-    auth_header = base64.b64encode(str(SPOTIPY_CLIENT_ID + ':' + SPOTIPY_CLIENT_SECRET).encode())
-    header = {'Authorization': 'Bearer %s' % auth_header.decode()}
-
-    r = requests.post(Play_URL, data=payload, headers=header)
-    print(r.status_code)
-    print(r.content)
-
-#Pause song on Spotify client function
 def pause_spot():
     scope = 'user-modify-playback-state'
     a = SpotifyOAuth.get_cached_token
@@ -76,74 +71,22 @@ def pause_spot():
         c_token = SpotifyOAuth.get_cached_token
     else:
         c_token = util.prompt_for_user_token(username, scope, SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, SPOTIPY_REDIRECT_URI)
+    import json
 
-    # data = []
-    # with open('.cache-11151306648') as f:
-    #     for line in f:
-    #         data.append(json.loads(line))
+    data = []
+    with open('.cache-loganlouks') as f:
+        for line in f:
+            data.append(json.loads(line))
 
-    Play_URL = "https://api.spotify.com/v1/me/player/pause"
-    payload = {'access_token': 'token',
-               'grant_type': 'access_token'}
+    # with open('.cache-loganlouks', 'r') as infh:
+    #     for data in json_parse(infh):
+    #         pay.append(json.loads(line))
+    #arr = json.loads(data)
+    #payload = data
+    #r = requests.put('https://api.spotify.com/v1/me/player/pause', data = {'access_token': })
+    #print(r.status_code)
+    #print(r.content)
 
-    auth_header = base64.b64encode(str(SPOTIPY_CLIENT_ID + ':' + SPOTIPY_CLIENT_SECRET).encode())
-    header = {'Authorization': 'Bearer %s' % auth_header.decode()}
-
-    r = requests.post(Play_URL, data=payload, headers=header)
-    print(r.status_code)
-    print(r.content)
-
-#Go to next song on Spotify client function
-def next_spot():
-    scope = 'user-modify-playback-state'
-    a = SpotifyOAuth.get_cached_token
-    if (a != None):
-        c_token = SpotifyOAuth.get_cached_token
-    else:
-        c_token = util.prompt_for_user_token(username, scope, SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, SPOTIPY_REDIRECT_URI)
-
-    # data = []
-    # with open('.cache-11151306648') as f:
-    #     for line in f:
-    #         data.append(json.loads(line))
-
-    Play_URL = "https://api.spotify.com/v1/me/player/next"
-    payload = {'access_token': 'token',
-               'grant_type': 'access_token'}
-
-    auth_header = base64.b64encode(str(SPOTIPY_CLIENT_ID + ':' + SPOTIPY_CLIENT_SECRET).encode())
-    header = {'Authorization': 'Bearer %s' % auth_header.decode()}
-
-    r = requests.post(Play_URL, data=payload, headers=header)
-    print(r.status_code)
-    print(r.content)
-
-#Go to previous song on Spotify client function
-def previous_spot():
-    scope = 'user-modify-playback-state'
-    a = SpotifyOAuth.get_cached_token
-    if (a != None):
-        c_token = SpotifyOAuth.get_cached_token
-    else:
-        c_token = util.prompt_for_user_token(username, scope, SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, SPOTIPY_REDIRECT_URI)
-
-    # data = []
-    # with open('.cache-11151306648') as f:
-    #     for line in f:
-    #         data.append(json.loads(line))
-
-    Play_URL = "https://api.spotify.com/v1/me/player/previous"
-    payload = {'access_token': 'token',
-               'grant_type': 'access_token'}
-
-    auth_header = base64.b64encode(str(SPOTIPY_CLIENT_ID + ':' + SPOTIPY_CLIENT_SECRET).encode())
-    header = {'Authorization': 'Bearer %s' % auth_header.decode()}
-
-    r = requests.post(Play_URL, data=payload, headers=header)
-    print(r.status_code)
-    print(r.content)
-
-#Function that gets a user's playlists
 def playlist_get():
     #Cached token check, otherwise generate new token
     a = SpotifyOAuth.get_cached_token
@@ -185,3 +128,4 @@ def playlist_get():
                 continue
     else:
         print("Can't get token for", username)
+playlist_get()
