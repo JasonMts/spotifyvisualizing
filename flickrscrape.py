@@ -1,3 +1,11 @@
+'''
+Name of contributors: Iason, Cullen, Sean
+File names: GeeYouEye.py, flickrscrape.py
+Date of completion: 5/15/2017
+Description: Takes a song in as an input and then creates
+            a slideshow of images that pertains to the song. This file contains all the relevant functions.
+'''
+
 #library imports
 from flickrapi import FlickrAPI
 from pprint import pprint
