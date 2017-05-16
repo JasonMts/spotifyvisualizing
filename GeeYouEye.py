@@ -1,5 +1,6 @@
 #library imports
 from flickrscrape import getnouns, allnouns, getpictures, getbestwords, checknouns
+from Spot import show_tracks, play_spot, pause_spot, next_spot, previous_spot, playlist_get
 import tkinter
 import tkinter.messagebox
 from tkinter import *
@@ -36,6 +37,7 @@ def confSong():
     lyrics = str.lower(songBox.get(songBox.curselection())).replace(" ","")
     getpictures(checknouns(getbestwords(lyrics + ".txt")))
 
+    t1 = Timer(0,timeout0)
     t1.start()
 
 def timeout0():
@@ -67,6 +69,13 @@ def timeout1(track, limit):
 # Code to add widgets will go here...
 t1 = Timer(0, timeout0)
 buttConfirm = tkinter.Button (top, activebackground='green', text = "Confirm", command=confSong)
+##########
+#buttConfirm = tkinter.Button (top, activebackground='green', text = "Play", command=play_spot)
+#buttConfirm = tkinter.Button (top, activebackground='green', text = "Pause", command=pause_spot)
+#buttConfirm = tkinter.Button (top, activebackground='green', text = "Next", command=next_spot)
+#buttConfirm = tkinter.Button (top, activebackground='green', text = "Previous", command=previous_spot)
+#   These 4 functions are for controlling playback on the spotify client, however they are currently broken due to the POST command not sending a valid access token
+###########
 buttEXIT = tkinter.Button (top, text = "X", command=qui)
 buttEXIT.grid(row=0, column=10)
 buttConfirm.grid(row=7, column=0)
