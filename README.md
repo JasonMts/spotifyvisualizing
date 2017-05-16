@@ -8,6 +8,8 @@
 
 #Instructions: To run the program compile geeyoueye.py with python3
 
+#Trello Link: https://trello.com/b/Z15dtfxa/project-3-group-244-cst-205
+
 #Github Link: https://github.com/JasonMts/spotifyvisualizing
 
 #Future Work: Integrate more functionality with spotify
