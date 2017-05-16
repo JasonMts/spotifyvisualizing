@@ -1,6 +1,6 @@
 #library imports
 from flickrscrape import getnouns, allnouns, getpictures, getbestwords, checknouns
-from Spot import show_tracks, play_spot, pause_spot, next_spot, previous_spot, playlist_get
+#from Spot import show_tracks, play_spot, pause_spot, next_spot, previous_spot, playlist_get
 import tkinter
 import tkinter.messagebox
 from tkinter import *
@@ -25,7 +25,7 @@ imgPanelI.image = imgI
 imgPanelI.grid(row=1, column=1, columnspan=10, rowspan=7)
 songBox = Listbox(top)
 songBox.grid(row=0, column=0, rowspan=7)
-for item in ["Tunnel Vision", "Stairway to Heaven", "Dirt", "Fake Plastic Trees", "Through the Fire and Flames"]:
+for item in ["Tunnel Vision", "Stairway to Heaven", "Dirt", "The Number of the Beast", "Through the Fire and Flames"]:
     songBox.insert(END, item)
 
 #butt stuff, coding for buttons goes in corresponding functions below
