@@ -1,3 +1,12 @@
+'''
+Name of contributors: Cullen, Jason, Sean
+File names: GeeYouEye.py, flicrscrape.py
+Date of completion: 5/15/2017
+
+Description: Takes a song in as an input and then creates
+            a slideshow of images that pertains to the song
+'''
+
 #library imports
 from flickrscrape import getnouns, allnouns, getpictures, getbestwords, checknouns
 #from Spot import show_tracks, play_spot, pause_spot, next_spot, previous_spot, playlist_get
